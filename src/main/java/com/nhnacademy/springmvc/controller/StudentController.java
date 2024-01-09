@@ -3,16 +3,13 @@ package com.nhnacademy.springmvc.controller;
 import com.nhnacademy.springmvc.domain.Student;
 import com.nhnacademy.springmvc.exception.ValidationFailedException;
 import com.nhnacademy.springmvc.repository.StudentRepository;
-import com.nhnacademy.springmvc.validator.StudentValidator;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,26 +22,28 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/student")
 public class StudentController {
     private final StudentRepository studentRepository;
-    private final StudentValidator validator;
-
-    public StudentController(StudentRepository studentRepository, StudentValidator validator) {
+    public StudentController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        this.validator = validator;
+    }
+
+    @ModelAttribute("foundStudent")
+    public Student findStudent(@PathVariable("studentId") Long studentId){
+        return studentRepository.getStudent(studentId);
     }
 
     @GetMapping("/{studentId}")
     public String getStudent(@PathVariable Long studentId,
+                             @ModelAttribute("foundStudent") Student student,
                              Model model){
-        Student student = studentRepository.getStudent(studentId);
         model.addAttribute("student", student);
         return "student";
     }
 
     @GetMapping(value = "/{studentId}", params = "hideScore")
     public String getStudentWithoutScore(@PathVariable Long studentId,
+                                         @ModelAttribute("foundStudent") Student student,
                                          @RequestParam(name = "hideScore") boolean hideOpt,
                                          ModelMap modelMap){
-        Student student = studentRepository.getStudent(studentId);
         modelMap.addAttribute("student", student);
         return hideOpt ? "studentWithoutScore" : "student";
     }
@@ -68,17 +67,9 @@ public class StudentController {
         }
         studentRepository.modify(student);
 
-        Student modifiedStudent = studentRepository.getStudent(studentId);
-
         ModelAndView mav = new ModelAndView("student");
-        mav.addObject("student", modifiedStudent);
+        mav.addObject("student", student);
 
         return mav;
     }
-
-    @InitBinder("student")
-    protected void initBinder(WebDataBinder binder){
-        binder.addValidators(validator);
-    }
-
 }

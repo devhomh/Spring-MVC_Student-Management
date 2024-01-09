@@ -4,6 +4,7 @@
     <title>Error</title>
 </head>
 <body>
+    <h1>Error Page</h1>
   Error: ${exception}
 </body>
 </html>
