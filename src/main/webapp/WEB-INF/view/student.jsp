@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <th scope="row">성적</th>
-            <td>${student.grade}</td>
+            <td>${student.comment}</td>
         </tr>
         </tbody>
     </table>
