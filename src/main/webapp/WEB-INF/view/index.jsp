@@ -14,5 +14,9 @@
             <span><a href="/student/${studentId}?hideScore=yes">성적 제외 조회</a></span>
         </div>
     </c:forEach>
+
+    <div>
+        <button onclick="location.href='/student/register'">등록</button>
+    </div>
 </body>
 </html>

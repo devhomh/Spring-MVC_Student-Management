@@ -35,5 +35,11 @@
         </tr>
         </tbody>
     </table>
+    <br/>
+    <button onclick="location.href='/student/${student.id}/modify'">
+        수정
+    </button>
+    <br/>
+    <button onclick="location.href='/'">Home</button>
 </body>
 </html>

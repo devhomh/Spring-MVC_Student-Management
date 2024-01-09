@@ -1,4 +1,4 @@
-package com.nhnacademy.springmvc.domain;
+package com.nhnacademy.springmvc.exception;
 
 import java.util.stream.Collectors;
 import org.springframework.validation.BindingResult;
