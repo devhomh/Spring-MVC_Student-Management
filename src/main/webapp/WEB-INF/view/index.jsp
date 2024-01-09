@@ -6,12 +6,12 @@
 </head>
 <body>
     <c:forEach var="element" items="${studentMap}">
-        <c:set var="id" value="${element.key}"/>
+        <c:set var="studentId" value="${element.key}"/>
         <c:set var="student" value="${element.value}"/>
         <div>
             <span>${student.name}</span>
-            <span><a href="/student/${id}?hideScore=yes">성적 제외 조회</a></span>
-            <span><a href="/student/${id}">성적 포함 조회</a></span>
+            <span><a href="/student/${studentId}">성적 포함 조회</a></span>
+            <span><a href="/student/${studentId}?hideScore=yes">성적 제외 조회</a></span>
         </div>
     </c:forEach>
 </body>
