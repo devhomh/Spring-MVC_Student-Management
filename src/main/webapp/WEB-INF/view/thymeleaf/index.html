@@ -19,6 +19,9 @@
 
     <div>
         <button onclick="location.href='/student/register'" th:text="#{register.message}"></button>
+        <form method="POST" action="/logout" >
+            <button type="submit" th:text="#{logout.message}"></button>
+        </form>
     </div>
 </body>
 </html>

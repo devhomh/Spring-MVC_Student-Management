@@ -3,6 +3,8 @@ package com.nhnacademy.springmvc.config;
 import com.nhnacademy.springmvc.Base;
 import com.nhnacademy.springmvc.repository.StudentRepository;
 import com.nhnacademy.springmvc.repository.StudentRepositoryImpl;
+import com.nhnacademy.springmvc.repository.UserRepository;
+import com.nhnacademy.springmvc.repository.UserRepositoryImpl;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,5 +31,13 @@ public class RootConfig {
         messageSource.setBasename("message");
 
         return messageSource;
+    }
+
+    @Bean
+    public UserRepository userRepository(){
+        UserRepository userRepository = new UserRepositoryImpl();
+        userRepository.addUser("admin", "1234");
+
+        return userRepository;
     }
 }
