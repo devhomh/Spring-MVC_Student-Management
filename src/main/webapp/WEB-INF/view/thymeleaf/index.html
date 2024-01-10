@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>학생 정보 관리</title>
+</head>
+<body>
+    <div th:each="element : ${studentMap}" th:with="studentId = ${element.key}, student = ${element.value}">
+        <span th:text="${student.name}"></span>
+        <span><a th:href="@{'/student/' + ${studentId}}">성적 포함 조회</a></span>
+        <span><a th:href="@{'/student/' + ${studentId}(hideScore=yes)}">성적 제외 조회</a></span>
+    </div>
+
+    <div>
+        <button onclick="location.href='/student/register'">등록</button>
+    </div>
+</body>
+</html>

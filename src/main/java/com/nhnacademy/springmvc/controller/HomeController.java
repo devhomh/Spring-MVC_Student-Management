@@ -15,7 +15,7 @@ public class HomeController {
 
     @GetMapping("/")
     public ModelAndView index(){
-        ModelAndView mav = new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("thymeleaf/index");
         mav.addObject("studentMap", studentRepository.findAll());
         return mav;
     }

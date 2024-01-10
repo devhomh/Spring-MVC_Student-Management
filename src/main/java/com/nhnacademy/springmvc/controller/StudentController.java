@@ -36,42 +36,39 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public String getStudent(@PathVariable Long studentId,
-                             @ModelAttribute("foundStudent") Student student,
+    public String getStudent(@ModelAttribute("foundStudent") Student student,
                              Model model){
         model.addAttribute("student", student);
-        return "student";
+        return "thymeleaf/student";
     }
 
     @GetMapping(value = "/{studentId}", params = "hideScore")
-    public String getStudentWithoutScore(@PathVariable Long studentId,
-                                         @ModelAttribute("foundStudent") Student student,
+    public String getStudentWithoutScore(@ModelAttribute("foundStudent") Student student,
                                          @RequestParam(name = "hideScore") boolean hideOpt,
                                          ModelMap modelMap){
         modelMap.addAttribute("student", student);
-        return hideOpt ? "studentWithoutScore" : "student";
+        return hideOpt ? "thymeleaf/studentWithoutScore" : "thymeleaf/student";
     }
 
     @GetMapping("/{studentId}/modify")
     public ModelAndView getStudentModify(@PathVariable Long studentId){
         Student student = studentRepository.getStudent(studentId);
 
-        ModelAndView mav = new ModelAndView("studentRegister");
+        ModelAndView mav = new ModelAndView("thymeleaf/studentRegister");
         mav.addObject("student", student);
         return mav;
     }
 
     @PostMapping("/{studentId}/modify")
     @ResponseStatus(HttpStatus.OK)
-    public ModelAndView modifyStudent(@PathVariable Long studentId,
-                                      @Valid @ModelAttribute Student student,
+    public ModelAndView modifyStudent(@Valid @ModelAttribute Student student,
                                       BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             throw new ValidationFailedException(bindingResult);
         }
         studentRepository.modify(student);
 
-        ModelAndView mav = new ModelAndView("student");
+        ModelAndView mav = new ModelAndView("thymeleaf/student");
         mav.addObject("student", student);
 
         return mav;
@@ -81,7 +78,7 @@ public class StudentController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ModelAndView notFoundException(RuntimeException exception) {
         log.error("없는 학생 입니다.", exception);
-        ModelAndView mav = new ModelAndView("error");
+        ModelAndView mav = new ModelAndView("thymeleaf/error");
         mav.addObject("exception", exception);
 
         return mav;

@@ -15,6 +15,6 @@ public class WebControllerAdvice {
         log.error("에러 발생", exception);
 
         model.addAttribute("exception", exception);
-        return "error";
+        return "thymeleaf/error";
     }
 }

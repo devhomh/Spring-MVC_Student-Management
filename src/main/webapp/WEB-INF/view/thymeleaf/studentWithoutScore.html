@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>학생 조회 - 성적 제외</title>
+</head>
+<body th:with="student=${student}">
+<table>
+  <tbody>
+    <tr>
+      <th scope="row">아이디</th>
+      <td th:text="${student.id}"/>
+    <tr>
+      <th scope="row">이름</th>
+      <td th:text="${student.name}"/>
+    </tr>
+    <tr>
+      <th scope="row">이메일</th>
+      <td th:text="${student.email}"/>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<button th:onclick="|location.href='/student/' + ${student.id} + '/modify'|">
+  수정
+</button>
+<br/>
+<button onclick="location.href='/'">Home</button>
+</body>
+</html>
