@@ -1,6 +1,5 @@
 package com.nhnacademy.springmvc.controller;
 
-import com.nhnacademy.springmvc.exception.StudentNotFoundException;
 import com.nhnacademy.springmvc.exception.UserNotFoundException;
 import com.nhnacademy.springmvc.repository.UserRepository;
 import java.util.Objects;
