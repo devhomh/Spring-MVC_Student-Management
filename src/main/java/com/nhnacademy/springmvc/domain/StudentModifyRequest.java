@@ -4,10 +4,13 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.hibernate.validator.constraints.Length;
 
 @Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class StudentModifyRequest {
     long id;
     @NotBlank

@@ -31,6 +31,7 @@ public class StudentRestController {
     @GetMapping("/{studentId}")
     public ResponseEntity<Student> getStudent(@PathVariable("studentId") long studentId){
         Student student = studentRepository.getStudent(studentId);
+
         return ResponseEntity.ok(student);
     }
 
@@ -38,30 +39,28 @@ public class StudentRestController {
     @PostMapping
     public ResponseEntity<String> registerStudent(@RequestBody StudentRegisterRequest student){
         studentRepository.register(student.getId(), student.getName(), student.getEmail(), student.getScore(), student.getComment());
+
         return ResponseEntity.status(HttpStatus.CREATED).body("Registerd");
     }
 
     @PutMapping(("/{studentId}"))
-    public ResponseEntity<String> modifyStudent(@PathVariable("studentId") long studentId,
-                                                StudentModifyRequest student){
+    public ResponseEntity<String> modifyStudent(@PathVariable("studentId") long studentId, @RequestBody StudentModifyRequest student){
         if(studentId == student.getId()){
             Student modified = Student.create(student.getId(), student.getName(), student.getEmail(), student.getScore(), student.getComment());
             studentRepository.modify(modified);
             return ResponseEntity.ok("Modified");
         }
 
-        return ResponseEntity.badRequest().body("요청하는 id data를 확인하세요");
+        return ResponseEntity.badRequest().body("Recheck id value");
     }
-
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity<String> notFoundException(RuntimeException exception) {
-        log.error("없는 학생 입니다.", exception);
+        log.error("없는 학생 입니다. = {}", exception.getMessage());
         return ResponseEntity.notFound().build();
     }
-
     @ExceptionHandler(StudentAlreadyExistsException.class)
     public ResponseEntity<String> alreadyExistsException(RuntimeException exception) {
-        String errorMsg = "이미 존재하는 ID입니다.";
+        String errorMsg = "Already Exist";
         log.error(errorMsg, exception);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMsg);
     }
