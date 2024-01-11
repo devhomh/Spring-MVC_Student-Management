@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/students")
-public class ApiController {
+public class StudentRestController {
     private final StudentRepository studentRepository;
 
-    public ApiController(StudentRepository studentRepository) {
+    public StudentRestController(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
